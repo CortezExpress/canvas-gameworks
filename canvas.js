@@ -6,12 +6,13 @@ var ballSpeedY = 4;
 var stick1Y = 250;
 var stick2Y = 250;
 var paddleHeight = 100;
-// var paddle2Height = 100 
+var paddle2Height = 100 
 var paddleWidth = 10;
 var score1 = 0;
 var score2 = 0;
 var chickenDinner = 3;
-var showingWinScreen = false;
+var winScreen = false;
+var is2Playas = false
 
 
 // mouse movement
@@ -28,10 +29,10 @@ function calculateMousePos (evt){
 }
 
 function restartClick(evt){
-	if (showingWinScreen){
+	if (winScreen){
 		score1 = 0;
 		score2 = 0;
-		showingWinScreen = false;
+		winWinScreen = false;
 	}
 }
 window.onload = function () {
@@ -71,7 +72,7 @@ document.getElementById('start-game-button').onclick = function () {
 	}
 
 	function AIBaby(){
-//tricky tricky - want it to aim for the center of the stick
+//tricky tricky - want it to aim for the center of the stick - take away the plus/minus
 		var rtStickCenter = stick2Y + (paddleHeight*0.5);
 		if (rtStickCenter < bally-35) {
 			stick2Y += 6;
@@ -83,7 +84,6 @@ document.getElementById('start-game-button').onclick = function () {
 
 	// bodies in motion
 	function moveEverything(){
-
 		AIBaby();
 		ballX += ballSpeedX;
 		bally += ballSpeedY;
@@ -96,8 +96,7 @@ document.getElementById('start-game-button').onclick = function () {
 			if( bally > stick1Y && bally < stick1Y + paddleHeight) {
 				ballSpeedX = - ballSpeedX;
 
-					var deltaY = bally
-						-(stick1Y +paddleHeight/2);
+					var deltaY = bally -(stick1Y + paddleHeight/2);
 					ballSpeedY =deltaY * 0.35;
 			} else{
 				score2 ++;
@@ -139,15 +138,17 @@ document.getElementById('start-game-button').onclick = function () {
 		// black canvas
 		drawBox(0, 0, canvas.width, canvas.height, 'black');
 
-		if (showingWinScreen){
+		if (winScreen){
 			ctx.fillStyle = 'white';
 			if (score1 >= chickenDinner) {
-				ctx.fillText("Human prevails", 550, 200);
+				ctx.fillText("Human prevails", (canvas.width/2-100), 200);
+				ctx.font="30px Arial";
 			}else if (score2 >= chickenDinner) {
-				ctx.fillText("You have been terminated!!!!", 550, 200);
+				ctx.fillText("You have been terminated!!!!",(canvas.width/2-100), 200);
+				ctx.font="30px Arial";
 			}
 			
-			ctx.fillText("click to continue", 550, 400);
+			ctx.fillText("click to continue", (canvas.width/2-100), 400);
 //break is used when you want to exit from loop, while return is used to go back to the step where it was called or to stop further execution.
 
 			return;
@@ -161,8 +162,8 @@ document.getElementById('start-game-button').onclick = function () {
 
 		// left side paddle - player 1 - mouse
 		drawBox(0, stick1Y, paddleWidth, paddleHeight, 'white');
-		// Right side paddle - player 2 -s ubtract the width of the paddle
-		drawBox(canvas.width-paddleWidth, stick2Y, paddleWidth, paddleHeight, 'white');
+		// Right side paddle - player 2 -subtract the width of the paddle
+		drawBox(canvas.width-paddleWidth, stick2Y, paddleWidth, paddle2Height, 'white');
 		
 		ctx.fillText(score1, 100, 100);
 		ctx.fillText(score2, canvas.width-100, 100);
@@ -194,10 +195,56 @@ function ballReset (){
 	if (score1 >= chickenDinner || score2 >= chickenDinner) {
 		// score1 = 0;
 		// score2 = 0;
-		showingWinScreen = true;
+		winScreen = true;
 	}
-	ballSpeedX = -Math.abs(ballSpeedX);
-	ballX = canvas.width - 400;
-	ballY = 250;
+	ballSpeedX = -ballSpeedX;
+	ballX = canvas.width/2;
+	ballY = canvas.height/2;
 
 }
+
+
+
+// function moveArrows(e){
+// 	// alert(e.keyCode)
+// // 38 = up arrow key
+// 	if (e.keyCode = 38){
+// 		stick2Y +=6;
+// 	}
+// // 40 = down arrow key
+// 	if (e.keyCode = 40){
+// 		stick2Y-= 6;
+// 	}
+// 	canvas.height=canvas.height;
+// 	ctx.
+// }
+
+// document.onkeydown = moveArrows;
+function keysWork(){
+	document.addEventListener('keydown', function (evt){
+	var keyPress = String.fromCharCode(evt.keyCode);
+	if(keyPress == "L"){
+		stick2Y += 10;
+	} else if(keyPress == "P"){
+		stick2Y -= 10;
+	}
+});
+}
+
+
+
+// good morning. i have a new question, but it's more about strategy of solving a problem (as opposed to 
+// something not working).  i finally got my right side paddle working with keys this morning. i haven't 
+// tried the arrow keys bc i first wanted it to work with letters (the left paddle is controlled by the 
+// mouse). right now my right side key control is a "document.addEventListener('keydown', f(x))" and 
+// is not inside a function.  my gut is to put either a radio (requires just one choice) above my start 
+// button that allows the user to choose 1 or 2 players. then i will have a function that runs on an if 
+// else statement on whether to use automated computer movement (for 1 player) or keys work (for 2 players).
+//  my real reason for asking is that between you, in class, and tutorials i try to watch at night and in 
+// the morning, i feel "the professionals" would make a variable (var is2players = false) and then toggle 
+// or switch it to true so that the function being run is one of those easy ones from the hangman where you 
+// nly need to switch the variable to true (from false). for the life of me i can't see why that is easier,
+// but i feel like that is how you would advise to approach it. i therefore wanted to know if i am correct 
+// and if i should just do it your way because it will be more helpful to me in the future when things get 
+// crazier? or maybe i am missing something? if you prefer we can do this in person, but maybe because 
+// students want/need more personal attention in class you prefer to just reply in slack. 
