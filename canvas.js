@@ -40,14 +40,15 @@ window.onload = function () {
 	// document.getElementById('gameDiv').style.display = 'none';
 }
 
-document.getElementById('start-game-button').onclick = function () {
+document.getElementById('start-game-button').onclick = function (e) {
 		canvas = document.getElementById('gameCanvas');		
 		ctx = canvas.getContext('2d');
 
 		document.getElementById('title').style.display = 'none';
 		// document.getElementById('gameDiv').style.display = 'block';
 
-		
+		console.log(document.querySelector('input[name="cuantosPlayas"]:checked').value);
+
 		var framesPerSecond = 30;
 		setInterval(function (){
 			moveEverything();
@@ -61,9 +62,9 @@ document.getElementById('start-game-button').onclick = function () {
 		canvas.addEventListener('mousedown', restartClick)
 
 		});
-		
-		
 }
+
+
 
 	function callBoth(){
 		moveEverything();
@@ -84,7 +85,8 @@ document.getElementById('start-game-button').onclick = function () {
 
 	// bodies in motion
 	function moveEverything(){
-		AIBaby();
+		// AIBaby();
+		keysWork()
 		ballX += ballSpeedX;
 		bally += ballSpeedY;
 			
@@ -224,27 +226,13 @@ function keysWork(){
 	document.addEventListener('keydown', function (evt){
 	var keyPress = String.fromCharCode(evt.keyCode);
 	if(keyPress == "L"){
-		stick2Y += 10;
+		stick2Y += 15;
 	} else if(keyPress == "P"){
-		stick2Y -= 10;
+		stick2Y -= 15;
 	}
 });
 }
 
 
 
-// good morning. i have a new question, but it's more about strategy of solving a problem (as opposed to 
-// something not working).  i finally got my right side paddle working with keys this morning. i haven't 
-// tried the arrow keys bc i first wanted it to work with letters (the left paddle is controlled by the 
-// mouse). right now my right side key control is a "document.addEventListener('keydown', f(x))" and 
-// is not inside a function.  my gut is to put either a radio (requires just one choice) above my start 
-// button that allows the user to choose 1 or 2 players. then i will have a function that runs on an if 
-// else statement on whether to use automated computer movement (for 1 player) or keys work (for 2 players).
-//  my real reason for asking is that between you, in class, and tutorials i try to watch at night and in 
-// the morning, i feel "the professionals" would make a variable (var is2players = false) and then toggle 
-// or switch it to true so that the function being run is one of those easy ones from the hangman where you 
-// nly need to switch the variable to true (from false). for the life of me i can't see why that is easier,
-// but i feel like that is how you would advise to approach it. i therefore wanted to know if i am correct 
-// and if i should just do it your way because it will be more helpful to me in the future when things get 
-// crazier? or maybe i am missing something? if you prefer we can do this in person, but maybe because 
-// students want/need more personal attention in class you prefer to just reply in slack. 
+

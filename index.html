@@ -12,15 +12,17 @@
 		<div>
 			<img src="PONG-SONG-SNIP.PNG" alt="" class="game-logo">
 		</div>
-		<form>
+		<form action="/canvas.js">
 			<label for="onePlayer">1 player: </label>
-			<input name="cuantosPlayas" id="onePlayer" type="radio">
+			<input name="cuantosPlayas" id="onePlayer" type="radio" value="onePlayer">
 
 			<label for="twoPlayer">2 player: </label>
-			<input name="cuantosPlayas" id="twoPlayer" type="radio">
-			
-			<button id="start-game-button">START GAME</button>
+			<input name="cuantosPlayas" id="twoPlayer" type="radio" value="twoPlayer">
+			<br>
+			<button id="start-game-button" type="submit">START GAME</button>
 		</form>
+
+
 	</div>
 	<div id="gameDiv">
  		<canvas id="gameCanvas" height="600px" width="1200px"></canvas>
