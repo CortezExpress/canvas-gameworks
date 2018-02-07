@@ -89,7 +89,7 @@ window.onload = function () {
 	// bodies in motion
 	function moveEverything(){
 
-		AIBaby();
+		// AIBaby();
 		ballX += ballSpeedX;
 		bally += ballSpeedY;
 			
@@ -206,6 +206,14 @@ function ballReset (){
 	ballY = canvas.height/2;
 
 }
+document.addEventListener('keydown', function (evt){
+		var keyPress = String.fromCharCode(evt.keyCode);
+		if(keyPress == "L"){
+			stick2Y += 15;
+		} else if(keyPress == "P"){
+			stick2Y -= 15;
+		}
+	});
 
 
 

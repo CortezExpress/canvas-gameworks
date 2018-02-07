@@ -14,6 +14,7 @@ var chickenDinner = 3;
 var winScreen = false;
 var is2Playas = false
 
+
 // mouse movement
 function calculateMousePos (evt){
 		var rect = canvas.getBoundingClientRect();
@@ -31,8 +32,7 @@ function restartClick(evt){
 	if (winScreen){
 		score1 = 0;
 		score2 = 0;
-		ctx.font="30px Arial";
-		winScreen = false;
+		winWinScreen = false;
 	}
 }
 window.onload = function () {
@@ -40,74 +40,41 @@ window.onload = function () {
 	// document.getElementById('gameDiv').style.display = 'none';
 }
 
-document.getElementById('start-game-button').onclick = function () {
+document.getElementById('start-game-button').onclick = function (e) {
 		canvas = document.getElementById('gameCanvas');		
 		ctx = canvas.getContext('2d');
 
 		document.getElementById('title').style.display = 'none';
 		// document.getElementById('gameDiv').style.display = 'block';
-		
+
+		// Capturing the value of the selected radio button
+		var gamePlay = document.querySelector('input[name="cuantosPlayas"]:checked').value;
+
 		var framesPerSecond = 30;
 		setInterval(function (){
 			moveEverything();
 			drawEverything();
 		}, 1000/framesPerSecond);
 
-		// Capturing the value of the selected radio button
-		let gamePlay = document.querySelector('input[name="cuantosPlayas"]:checked').value;
-
-		if (gamePlay === "twoPlayer") {
-			document.addEventListener('keydown', function (evt){
-				var keyPress = String.fromCharCode(evt.keyCode);
-				if(keyPress == "L"){
-					stick2Y += 45;
-				} else if(keyPress == "P"){
-					stick2Y -= 45;
-				}
-			});
-		}
-
 		canvas.addEventListener('mousemove', function (evt) {
 			var mousePos = calculateMousePos(evt);
 			stick1Y = mousePos.y-(paddleHeight*0.5);
 
-			canvas.addEventListener('mousedown', restartClick)
+		canvas.addEventListener('mousedown', restartClick)
 
 		});
-		
-		
 }
-////// for two players
-// document.getElementById('two-play-button').onclick = function () {
-// 		canvas = document.getElementById('gameCanvas');		
-// 		ctx = canvas.getContext('2d');
 
-// 		document.getElementById('title').style.display = 'none';
-// 		// document.getElementById('gameDiv').style.display = 'block';
 
-		
-// 		var framesPerSecond = 30;
-// 		setInterval(function (){
-// 			moveEverything2PLayers();
-// 			drawEverything();
-// 		}, 1000/framesPerSecond);
 
-// 		canvas.addEventListener('mousemove', function (evt) {
-// 			var mousePos = calculateMousePos(evt);
-// 			stick1Y = mousePos.y-(paddleHeight*0.5);
+	function callBoth(){
+		moveEverything();
+		drawEverything();
+		if (twoPlayer == true){
+			console.log("2 players it is");
+		}
 
-// 		canvas.addEventListener('mousedown', restartClick)
-
-// 		});
-		
-		
-// }
-	// function callBoth(){
-	// 	moveEverything();
-	// 	drawEverything();
-
-	// }
-
+	}
 
 	function AIBaby(){
 //tricky tricky - want it to aim for the center of the stick - take away the plus/minus
@@ -119,24 +86,10 @@ document.getElementById('start-game-button').onclick = function () {
 			}
 		}
 
+
 	// bodies in motion
 	function moveEverything(){
-// 	document.addEventListener('keydown', function (evt){
-// 	var keyPress = String.fromCharCode(evt.keyCode);
-// 	if(keyPress == "L"){
-// 		stick2Y += 15;
-// 	} else if(keyPress == "P"){
-// 		stick2Y -= 15;
-// 	}
-// });
-		
-		// Capturing the value of the selected radio button
-		var gamePlay = document.querySelector('input[name="cuantosPlayas"]:checked').value;
-
-		if (gamePlay === "onePlayer") {
-			AIBaby();
-		}
-		
+		AIBaby();
 		ballX += ballSpeedX;
 		bally += ballSpeedY;
 			
@@ -176,53 +129,6 @@ document.getElementById('start-game-button').onclick = function () {
 
 	}
 	
-
-///////let's try again for 2
-// function moveEverything2PLayers(){
-
-		// AIBaby();
-		// ballX += ballSpeedX;
-		// bally += ballSpeedY;
-			
-		// if (ballX < 0){
-
-//need to know if ball is above the bottom and below the top of the paddle 
-// we add paddleHeight to get the bottom because Y goes down as it increases
-// if ball hits below zero and is not between the the paddle Y then score, check winner, and reset.
-// 			if( bally > stick1Y && bally < stick1Y + paddleHeight) {
-// 				ballSpeedX = - ballSpeedX;
-
-// 					var deltaY = bally -(stick1Y + paddleHeight/2);
-// 					ballSpeedY =deltaY * 0.35;
-// 			} else{
-// 				score2 ++;
-// 				ballReset();
-// 			}
-// 		}
-// 		if (ballX > canvas.width){
-// 			if( bally > stick2Y && bally < stick2Y + paddleHeight) {
-// 				ballSpeedX = - ballSpeedX;
-// 				var deltaY = bally-(stick2Y + paddleHeight/2);
-// 					ballSpeedY =deltaY * 0.35;
-// 			} else{
-// 				score1 ++;
-// 				ballReset();
-// 			}
-// 		}
-
-// // below is to make sure the ball doesn't go above or below the ceiling or floor. 
-// 		if (bally<0){
-// 			ballSpeedY = -ballSpeedY;
-// 		}
-// 		if (bally > canvas.height){
-// 			ballSpeedY = -ballSpeedY;
-// 		}
-
-// 	}
-
-
-
-
 
 	function drawCenterLine () {
 		for (var i=0;i<canvas.height; i+=40){
@@ -319,14 +225,8 @@ function ballReset (){
 // }
 
 // document.onkeydown = moveArrows;
-// function makePlayerTwoWork (){
-// 
-
-
-
-
-
-// document.addEventListener('keydown', function (evt){
+// function keysWork(){
+// 	document.addEventListener('keydown', function (evt){
 // 	var keyPress = String.fromCharCode(evt.keyCode);
 // 	if(keyPress == "L"){
 // 		stick2Y += 15;
@@ -334,20 +234,7 @@ function ballReset (){
 // 		stick2Y -= 15;
 // 	}
 // });
+// }
 
 
-// good morning. i have a new question, but it's more about strategy of solving a problem (as opposed to 
-// something not working).  i finally got my right side paddle working with keys this morning. i haven't 
-// tried the arrow keys bc i first wanted it to work with letters (the left paddle is controlled by the 
-// mouse). right now my right side key control is a "document.addEventListener('keydown', f(x))" and 
-// is not inside a function.  my gut is to put either a radio (requires just one choice) above my start 
-// button that allows the user to choose 1 or 2 players. then i will have a function that runs on an if 
-// else statement on whether to use automated computer movement (for 1 player) or keys work (for 2 players).
-//  my real reason for asking is that between you, in class, and tutorials i try to watch at night and in 
-// the morning, i feel "the professionals" would make a variable (var is2players = false) and then toggle 
-// or switch it to true so that the function being run is one of those easy ones from the hangman where you 
-// nly need to switch the variable to true (from false). for the life of me i can't see why that is easier,
-// but i feel like that is how you would advise to approach it. i therefore wanted to know if i am correct 
-// and if i should just do it your way because it will be more helpful to me in the future when things get 
-// crazier? or maybe i am missing something? if you prefer we can do this in person, but maybe because 
-// students want/need more personal attention in class you prefer to just reply in slack. 
+// HTML below

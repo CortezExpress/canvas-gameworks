@@ -1,3 +1,68 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="stylesheets/styles.css">
+  <title>Martin's Pong</title>
+</head>
+<body>
+	<div id="title">
+		<div>
+			<img src="PONG-SONG-SNIP.PNG" alt="" class="game-logo">
+		</div>
+		<div>
+			<button id="start-game-button" type="submit">ONE PLAYER GAME</button>
+		</div>
+			
+		<div>
+			<button id="two-play-button" type="submit">TWO PLAYER GAME</button>
+		</div>
+
+	</div>
+	<div id="gameDiv">
+ 		<canvas id="gameCanvas" height="600px" width="1200px"></canvas>
+ 	</div>
+  <script type="text/javascript" src="canvas.js"></script> -->
+  <!-- <script type="text/javascript" src="pong.js"></script> -->
+<!-- </body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="stylesheets/styles.css">
+  <title>Martin's Pong</title>
+</head>
+<body>
+	<div id="title">
+		<div>
+			<img src="PONG-SONG-SNIP.PNG" alt="" class="game-logo">
+		</div>
+		<form action="canvas.js" method="post"/>
+			<label for="onePlayer">1 player: </label>
+			<input name="cuantosPlayas" id="onePlayer" type="radio" value="onePlayer">
+
+			<label for="twoPlayer">2 player: </label>
+			<input name="cuantosPlayas" id="twoPlayer" type="radio" value="twoPlayer">
+			<br>
+			<button id="start-game-button" type="submit">START GAME</button>
+		</form>
+
+
+	</div>
+	<div id="gameDiv">
+ 		<canvas id="gameCanvas" height="600px" width="1200px"></canvas>
+ 	</div>
+  <script type="text/javascript" src="canvas.js"></script> -->
+  <!-- <script type="text/javascript" src="pong.js"></script> -->
+<!-- </body>
+</html> -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,12 +77,12 @@
 		<div>
 			<img src="PONG-SONG-SNIP.PNG" alt="" class="game-logo">
 		</div>
-		<form action="/canvas.js">
-			<label for="onePlayer">1 player: </label>
-			<input name="cuantosPlayas" id="onePlayer" type="radio" value="onePlayer">
+		<form action="canvas.js:handleClick()">
+			<label for="onePlayer">1 Player: </label>
+			<input name="cuantosPlayas" type="radio" value="onePlayer" checked>
 
-			<label for="twoPlayer">2 player: </label>
-			<input name="cuantosPlayas" id="twoPlayer" type="radio" value="twoPlayer">
+			<label for="twoPlayer">2 Player: </label>
+			<input name="cuantosPlayas" type="radio" value="twoPlayer">
 			<br>
 			<button id="start-game-button" type="submit">START GAME</button>
 		</form>
