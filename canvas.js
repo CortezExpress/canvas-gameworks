@@ -13,8 +13,8 @@ var score2 = 0;
 var chickenDinner = 3;
 var winScreen = false;
 // var game = setTimeout(gameLoop, 1000/30);
-// tempBallSpeedX = 0;
-// tempBallSpeedY =0;
+var tempBallSpeedX = 0;
+var tempBallSpeedY =0;
 
 // mouse movement
 function calculateMousePos (evt){
@@ -244,21 +244,25 @@ function ballReset (){
 
 	document.addEventListener('keydown', function (evt){
 	var keyPress = String.fromCharCode(evt.keyCode);
-	var tempBallSpeedX = 0;
-	var tempBallSpeedY =0;
 	if(keyPress == "G"){
 		if (ballSpeedX!=0){
 		tempBallSpeedX = ballSpeedX ;
 		tempBallSpeedY = ballSpeedY;
 		ballSpeedX = 0;
 		ballSpeedY = 0;
-		} else {
-			ballSpeedX = tempBallSpeedX;
-			ballSpeedY = tempBallSpeedY;
-		}
+		} 
 	}
 });
 	
+document.addEventListener('keydown', function (evt){
+	var keyPress = String.fromCharCode(evt.keyCode);
+	if(keyPress == "H"){
+		if (ballSpeedX===0){
+		ballSpeedX = tempBallSpeedX;
+		ballSpeedY = tempBallSpeedY;
+		} 
+	}
+});
 
 
 
