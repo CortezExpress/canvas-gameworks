@@ -22,6 +22,15 @@ const brickGap = 10;
 const brick = 10;
 const brickRows = 2;
 var brickGrid = new Array(brickCount);
+var moneySound = new Audio('walkAway.mp3');
+var yeyaChappelle = new Audio('yeah.m4a')
+var boo = new Audio('BooPrincessBride.m4a')
+var battleCry = new Audio('8bitthong.m4a')
+
+
+
+
+
 
 // mouse movement
 function calculateMousePos (evt){
@@ -40,13 +49,16 @@ function restartClick(evt){
 	if (winScreen){
 		score1 = 0;
 		score2 = 0;
+		ballSpeedX = 12;
 		ctx.font="30px Arial";
 		winScreen = false;
+		// ballSpeedX = 0;
 	}
 }
 window.onload = function () {
 	document.getElementById('title').style.display = 'block';
 	// document.getElementById('gameDiv').style.display = 'none';
+	battleCry.play(); //call it where you want it to play
 }
 
 document.getElementById('start-game-button').onclick = function () {
@@ -62,6 +74,8 @@ document.getElementById('start-game-button').onclick = function () {
 			moveEverything();
 			drawEverything();
 		}, 1000/framesPerSecond);
+		moneySound.play(); //call it where you want it to play
+		battleCry.pause();
 
 		// Capturing the value of the selected radio button
 		let gamePlay = document.querySelector('input[name="cuantosPlayas"]:checked').value;
@@ -88,15 +102,17 @@ document.getElementById('start-game-button').onclick = function () {
 		
 }
 
-
+document.getElementById('mute').onclick = function () {
+	battleCry.pause();
+}
 
 	function AIBaby(){
 //tricky tricky - want it to aim for the center of the stick - take away the plus/minus
 		var rtStickCenter = stick2Y + (paddleHeight*0.5);
 		if (rtStickCenter < bally-35) {
-			stick2Y += 6;
+			stick2Y += 8;
 		}else if (stick2Y > bally + 35){
-			stick2Y -= 6;
+			stick2Y -= 8;
 			}
 		}
 
@@ -125,17 +141,23 @@ document.getElementById('start-game-button').onclick = function () {
 					ballSpeedY =deltaY * 0.35;
 			} else{
 				score2 ++;
+				if (score2 < chickenDinner+1 && score1 < chickenDinner){
+				boo.play(); 
+				}
 				ballReset();
 			}
 		}
 		if (ballX > canvas.width-34){
 			if( bally > stick2Y && bally < stick2Y + paddleHeight) {
-				ballSpeedX = - ballSpeedX;
+				ballSpeedX *= -1;
 				var deltaY = bally-(stick2Y + paddleHeight/2);
 					ballSpeedY =deltaY * 0.35;
-			} else{
+			} else {
 				score1 ++;
 				ballReset();
+				if (score1 < chickenDinner +1 && score2 < chickenDinner){
+				yeyaChappelle.play(); 
+				}
 			}
 		}
 
@@ -164,14 +186,25 @@ document.getElementById('start-game-button').onclick = function () {
 
 		if (winScreen){
 			ctx.fillStyle = 'white';
+			// if (score1 >= chickenDinner && score2 < chickenDinner) {
+			// 	ctx.fillText("Human prevails", (canvas.width/2-100), 200);
+			// 	ctx.font="30px Arial";
+			// }else if (score2 >= chickenDinner && score1 < chickenDinner) {
+			// 	ctx.fillText("You have been terminated!!!!",(canvas.width/2-200), 200);
+			// 	ctx.font="30px Arial";
+			// }
+			
 			if (score1 >= chickenDinner) {
 				ctx.fillText("Human prevails", (canvas.width/2-100), 200);
 				ctx.font="30px Arial";
+				ballSpeedX = 0;
 			}else if (score2 >= chickenDinner) {
-				ctx.fillText("You have been terminated!!!!",(canvas.width/2-100), 200);
+				ctx.fillText("You have been terminated!!!!",(canvas.width/2-200), 200);
 				ctx.font="30px Arial";
+				ballSpeedX =0;
 			}
 			
+
 			ctx.fillText("click to continue", (canvas.width/2-100), 400);
 //break is used when you want to exit from loop, while return is used to go back to the step where it was called or to stop further execution.
 
@@ -224,6 +257,7 @@ function ballReset (){
 		// score2 = 0;
 		winScreen = true;
 	}
+	
 	ballSpeedX = -ballSpeedX;
 	ballX = canvas.width/2;
 	ballY = canvas.height/2;

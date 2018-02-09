@@ -18,3 +18,13 @@ body div {
 #bigWrapper {
 	background-color: white;
 }
+#rulesButton {
+    border: 0 ;
+	box-shadow: 0;
+	background: linear-gradient(to bottom, #9DA400, #BAC600);
+	color: #fff;
+	padding: 15px 30px;
+	font-size: 20px;
+	border-radius: 5px;
+	margin-top: 50px;
+}

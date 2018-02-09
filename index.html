@@ -21,8 +21,18 @@
 			<br>
 			<button id="start-game-button" type="submit">START GAME</button>
 		</form>
+		<br>
+        <br>
+        <script type="text/javascript">
+            function button () {
+                alert ("Letter 'G' to pause; 'H' to resume play. In two player mode: 'P' to move the right paddle up; and 'L' to move it down. Game ends when a player scores 3")
+            }
+        </script>
+			<input type="button" id="rulesButton" value="Game Rules" onclick=button()>
 
-
+	</div>
+	<div>
+		<button id="mute" type="submit">Mute</button>
 	</div>
 	<div id="gameDiv">
  		<canvas id="gameCanvas" height="600px" width="1250px"></canvas>
